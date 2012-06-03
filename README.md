@@ -1,7 +1,7 @@
 About Ruby EXI
 ==============
 
-This is an experiment in coding an Efficient XML Interchange (EXI) processor
+This is an experiment in coding an [Efficient XML Interchange (EXI)](http://www.w3.org/TR/exi/) processor
 with Ruby.
 
 ----
