@@ -13,6 +13,7 @@
 
 module EXI
     require "exi/grammar"
+    require "exi/options"
     require "exi/sax_handler"
     require "exi/xml_driver/nokogiri"
 end
