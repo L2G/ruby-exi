@@ -11,26 +11,48 @@
 ##  This work is published from: United States.
 ##
 
+#
+# Implements the Build-In Document Grammar, EXI 1.0 spec, section 8.4.1
+# <http://www.w3.org/TR/2011/REC-exi-20110310/#builtinDocGrammars>.
+#
 module EXI
     class Grammar
         class Document < Grammar
 
-            def initialize
-                super
-                @lhs[:Document] = [
-                    [:SD, nil, :DocContent, [0]]
-                ]
-                @lhs[:DocContent] = [
-                    [:SE, nil, :DocEnd,     [0]    ],
-                    [:DT, nil, :DocContent, [1,0]  ],
-                    [:CM, nil, :DocContent, [1,1,0]],
-                    [:PI, nil, :DocContent, [1,1,1]]
-                ]
-                @lhs[:DocEnd] = [
-                    [:ED, nil, nil,     [0]  ],
-                    [:CM, nil, :DocEnd, [1,0]],
-                    [:PI, nil, :DocEnd, [1,1]]
-                ]
+            def initialize(*args)
+                super(*args)
+
+                @lhs[:Document]   = [ [:SD, nil, :DocContent, [0]] ]
+                @lhs[:DocContent] = [ [:SE, nil, :DocEnd,     [0]] ]
+                @lhs[:DocEnd]     = [ [:ED, nil, nil,         [0]] ]
+
+                # Extend to support preservation/fidelity options
+                n = 0
+                m = 0
+                if @exi_options.preserve.include?(:dtd)
+                    @lhs[:DocContent].push(
+                        [:DT, nil, :DocContent, [1,n]]
+                    )
+                    n += 1
+                end
+                if @exi_options.preserve.include?(:comments)
+                    @lhs[:DocContent].push(
+                        [:CM, nil, :DocContent, [1,n,m]]
+                    )
+                    @lhs[:DocEnd].push(
+                        [:CM, nil, :DocEnd, [1,m]]
+                    )
+                    m += 1
+                end
+                if @exi_options.preserve.include?(:pis)
+                    @lhs[:DocContent].push(
+                        [:PI, nil, :DocContent, [1,n,m]]
+                    )
+                    @lhs[:DocEnd].push(
+                        [:PI, nil, :DocEnd, [1,m]]
+                    )
+                    m += 1
+                end
             end
         end
     end

@@ -22,10 +22,13 @@ require "exi/grammar/document"
 module EXI
     class Grammar
 
-        def initialize
+        def initialize(argHash = {})
             @lhs   = Hash.new     #-- Keyed by "left-hand side"
             @state = nil          #-- Symbol representing the current state:
                                   #--   "Document", "ElementContent", etc.
+            @session = argHash[:session] #-- Processor session/state
+            @exi_options = @session.options if @session
+            @exi_options ||= EXI::Options.new
         end
 
         # Decode an event code and return an EXI event.
