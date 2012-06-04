@@ -18,11 +18,14 @@
 # options will have a direct effect on the EXI coding.
 #
 
+require 'set'
+
 module EXI
     class Options
 
         # Class constants
         ALIGNMENTS    = [:bit_packed, :byte_alignment, :pre_compression]
+        PRESERVES     = [:dtd, :prefixes, :lexical_values, :comments, :pis]
         TRUE_OR_FALSE = [true, false]
 
         attr_reader :datatype_representation_map, :preserve,
@@ -30,10 +33,6 @@ module EXI
                     :value_partition_capacity
 
         attr_writer :schema_id
-
-        def initialize
-            @preserve       = nil # TODO: multiple parameters--check the spec
-        end
 
         def alignment
             @alignment || ALIGNMENTS[0]  #-- default = :bit_packed
@@ -80,8 +79,31 @@ module EXI
                 @fragment = bool
         end
 
-        def preserve=(wtf)
-            # TODO
+        #
+        # A set of zero or more of the following symbols used as flags:
+        # :dtd, :prefixes, :lexical_values, :comments, :pis. Presence of a
+        # flag indicates true; absence indicates false.
+        #
+        def preserve
+            defined?(@preserve) ? @preserve : Set.new
+        end
+
+        def preserve=(*flags)
+            if flags[0].kind_of?(Enumerable)
+                flags = flags[0]
+            end
+
+            @preserve ||= Set.new
+            @preserve.clear
+            flags.each do |flag|
+                if PRESERVES.include?(flag)
+                    @preserve.add(flag)
+                else
+                    raise(ArgumentError,
+                          "Preservation flag given was #{flag.inspect} but " +
+                          "must be one of: " + PRESERVES.inspect)
+                end
+            end
         end
 
         def self_contained
