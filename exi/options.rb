@@ -11,12 +11,12 @@
 ##  This work is published from: United States.
 ##
 
-require 'ostruct'
-
+#
 # This models the EXI options defined in the EXI Format 1.0 specs, section 5.4,
 # "EXI Options" <http://www.w3.org/TR/2011/REC-exi-20110310/#options>. The
 # object will also accept ad-hoc, user-defined options. Only the predefined
 # options will have a direct effect on the EXI coding.
+#
 
 module EXI
     class Options
@@ -25,24 +25,18 @@ module EXI
         ALIGNMENTS    = [:bit_packed, :byte_alignment, :pre_compression]
         TRUE_OR_FALSE = [true, false]
 
-        attr_reader :alignment, :block_size, :compression,
-                    :datatype_representation_map, :fragment, :preserve,
-                    :schema_id, :self_contained, :strict, :value_max_length,
+        attr_reader :datatype_representation_map, :preserve,
+                    :schema_id, :value_max_length,
                     :value_partition_capacity
 
         attr_writer :schema_id
 
         def initialize
-            # These are the defaults used when any options at all are provided.
-            # The EXI 1.0 spec does not define specific behavior for when **NO**
-            # options are provided.
-            @alignment      = ALIGNMENTS[0]  #-- :bit_packed
-            @compression    = false
-            @strict         = false
-            @fragment       = false
             @preserve       = nil # TODO: multiple parameters--check the spec
-            @self_contained = false
-            @block_size     = 1_000_000
+        end
+
+        def alignment
+            @alignment || ALIGNMENTS[0]  #-- default = :bit_packed
         end
 
         def alignment=(what)
@@ -55,9 +49,17 @@ module EXI
             end
         end
 
+        def block_size
+            defined?(@block_size) ? @block_size : 1_000_000
+        end
+
         def block_size=(integer)
             valid_integer(integer) &&
                 @block_size = integer
+        end
+
+        def compression
+            defined?(@compression) ? @compression : false
         end
 
         def compression=(bool)
@@ -66,7 +68,11 @@ module EXI
         end
 
         def datatype_representation_map=(wtf)
-            # todo
+            # TODO
+        end
+
+        def fragment
+            defined?(@fragment) ? @fragment : false
         end
 
         def fragment=(bool)
@@ -78,9 +84,17 @@ module EXI
             # TODO
         end
 
+        def self_contained
+            defined?(@self_contained) ? @self_contained : false
+        end
+
         def self_contained=(bool)
             valid_boolean(bool) &&
                 @self_contained = bool
+        end
+
+        def strict
+            defined?(@strict) ? @strict : false
         end
 
         def strict=(bool)
@@ -98,7 +112,9 @@ module EXI
                 @value_partition_capacity = integer
         end
 
-        # This should handle any user-defined options.
+        #
+        # This handles user-defined options, both getting and setting.
+        #
         def method_missing(method_name, value = nil)
             var_name = "@#{method_name}"
             is_assignment = var_name.gsub!(/=$/,'')
