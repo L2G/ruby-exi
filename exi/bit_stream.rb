@@ -1,8 +1,8 @@
 #!/usr/bin/env ruby
 
 ##
-##  exi.rb
-##  created 2012-06-01 by Larry Gilbert <larry@L2G.to>
+##  exi/XXX
+##  created 20XX-XX-XX by Larry Gilbert <larry@L2G.to>
 ##  part of Ruby EXI
 ##
 ##  To the extent possible under law, Lawrence Leonard Gilbert has
@@ -12,11 +12,6 @@
 ##
 
 module EXI
-    require "exi/bit_stream"
-    require "exi/bit_vector"
-    require "exi/grammar"
-    require "exi/options"
-    require "exi/sax_handler"
-    require "exi/type/unsigned_integer"
-    require "exi/xml_driver/nokogiri"
+    class XXX
+    end
 end

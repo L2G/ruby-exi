@@ -22,7 +22,13 @@ require "exi/grammar/document"
 module EXI
     class Grammar
 
-        def initialize(argHash = {})
+        # Indices into grammar production arrays
+        GP_EVENT      = 0
+        GP_NAME       = 1
+        GP_NEXT_STATE = 2
+        GP_CODE       = 3
+
+        def initialize
             @lhs   = Hash.new     #-- Keyed by "left-hand side"
             @state = nil          #-- Symbol representing the current state:
                                   #--   "Document", "ElementContent", etc.
