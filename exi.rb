@@ -17,5 +17,6 @@ module EXI
     require "exi/grammar"
     require "exi/options"
     require "exi/sax_handler"
+    require "exi/type/unsigned_integer"
     require "exi/xml_driver/nokogiri"
 end
