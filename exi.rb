@@ -11,12 +11,11 @@
 ##  This work is published from: United States.
 ##
 
-module EXI
-    require "exi/bit_stream"
-    require "exi/bit_vector"
-    require "exi/grammar"
-    require "exi/options"
-    require "exi/sax_handler"
-    require "exi/type/unsigned_integer"
-    require "exi/xml_driver/nokogiri"
-end
+require "exi/bit_stream"
+require "exi/bit_vector"
+require "exi/grammar"
+require "exi/options"
+require "exi/sax_handler"
+require "exi/type/unsigned_integer"
+require "exi/xml_driver/nokogiri"
+

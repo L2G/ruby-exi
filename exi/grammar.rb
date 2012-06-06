@@ -12,6 +12,7 @@
 ##
 
 require "exi/grammar/document"
+require "exi/grammar/fragment"
 
 # EXI::Grammar is an abstract (base) class for other EXI::Grammar::* classes.
 # See section 8, "EXI Grammars", in W3C's EXI Format 1.0 spec
@@ -28,7 +29,7 @@ module EXI
         GP_NEXT_STATE = 2
         GP_CODE       = 3
 
-        def initialize
+        def initialize(argHash = {})
             @lhs   = Hash.new     #-- Keyed by "left-hand side"
             @state = nil          #-- Symbol representing the current state:
                                   #--   "Document", "ElementContent", etc.
