@@ -19,6 +19,7 @@ module EXI
     require "exi/options"
     require "exi/qname"
     require "exi/sax_handler"
+    require "exi/session"
     require "exi/type/unsigned_integer"
     require "exi/xml_driver/nokogiri"
 end
