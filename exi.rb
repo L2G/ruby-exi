@@ -16,6 +16,7 @@ module EXI
     require "exi/bit_vector"
     require "exi/event"
     require "exi/grammar"
+    require "exi/nokogiri_reader_handler"
     require "exi/options"
     require "exi/qname"
     require "exi/sax_handler"

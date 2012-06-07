@@ -16,8 +16,13 @@ module EXI
         attr_reader :options
 
         def initialize
-            @options = EXI::Options.new            
+            @options = EXI::Options.new
+            @options.preserve = :prefixes
         end
 
+        def sax_handler
+            @sax_handler ||= EXI::SaxHandler.new(self)
+            @sax_handler
+        end
     end
 end

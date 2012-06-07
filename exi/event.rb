@@ -42,6 +42,9 @@ module EXI
         class StartElement < Base
             SYMBOL = :SE
             attr_accessor :qname
+            def initialize(qname = nil)
+                @qname = qname
+            end
         end
         SE = StartElement
 
@@ -53,12 +56,19 @@ module EXI
         class Attribute < Base
             SYMBOL = :AT
             attr_accessor :qname, :value
+            def initialize(qname, value)
+                @qname = qname
+                @value = value
+            end
         end
         AT = Attribute
 
         class Characters < Base
             SYMBOL = :CH
             attr_accessor :value
+            def initialize(value)
+                @value = value
+            end
         end
         CH = Characters
 
