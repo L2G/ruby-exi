@@ -54,6 +54,14 @@ module EXI
                     m += 1
                 end
             end
+
+            def insert_production_start_element(lhs, se_qname, rhs)
+                @lhs[lhs].each do |production|
+                    production[GP_CODE][0] += 1
+                end
+                @lhs[lhs].unshift( [:SE, se_qname, rhs, [0]] )
+            end
+
         end
     end
 end
