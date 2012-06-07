@@ -14,6 +14,7 @@
 module EXI
     require "exi/bit_stream"
     require "exi/bit_vector"
+    require "exi/event"
     require "exi/grammar"
     require "exi/options"
     require "exi/sax_handler"
