@@ -17,7 +17,7 @@ enough to handle all of them.
 Right now, [Nokogiri](http://nokogiri.org/) is my favorite library, but that
 may change soon. Its SAX parser doesn't do absolutely everything I'd like it
 to do. [Ox](https://github.com/ohler55/ox) looks promising, if for no other
-reason than it sells itself as a superior alternative to Ox. :-)
+reason than it sells itself as a superior alternative to Nokogiri. :-)
 
 In-memory XML handling is more flexible and feels more natural to work with OO
 style. SAX, of course, does not consume (as much) memory and is potentially
